@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Similar Issue Finder Tool</title>
+       <link rel="stylesheet" media="screen" href ="static/bootstrap.min.css">
+       <link rel="stylesheet" href="static/bootstrap-theme.min.css">
+       <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+ 
+    </head>
+    <body>
+ 
+ 
+<div class="container">
+ 
+ 
+  <h2>Similar Issue Finder Tool</h2>
+  <p><a href="{{ url_for('modelQuery') }}"><b><u>Click Here to go back to Search Form</b></u></a></p>
+  <form  action="" method="post" role="form">
+    {{ form.csrf }}
+    <div class="form-group">
+      <label for="name">UserName:</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Jira Username">
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Jira Password (Your Jira Passwords are never saved in the APP, used as encryption token for obtaining Jira Object)">
+	  <br>
+	  <label for="filter">Filter:</label>
+      <input type="text" class="form-control" id="filter" name="filter" placeholder="Your own customized Jira Filter">
+	  <br>
+	  <label for="modelName">ModelName:</label>
+      <input type="text" class="form-control" id="modelName" name="modelName" placeholder="Your ModelName">
+      <br>
+ 
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+ 
+  <br>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+ 
+        {% for message in messages %}
+            {% if "Error" not in message[1]: %}
+                <div class="alert alert-info">
+                <strong> </strong> {{ message[1] }}
+                </div>
+            {% endif %}
+ 
+            {% if "Error" in message[1]: %}
+                <div class="alert alert-warning">
+                {{ message[1] }}
+                </div>
+            {% endif %}
+        {% endfor %}
+            {% endif %}
+        {% endwith %}
+ 
+</div>
+<br>            
+</div>
+</div>
+</body>
+</html>
